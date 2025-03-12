@@ -15,6 +15,7 @@ ScreenManager::ScreenManager() {
 void ScreenManager::initstart() {
   gfx->begin();
   gfx->draw16bitRGBBitmap(0, 0, (const uint16_t *)gImage_startlogo, 240, 240);
+  wifistart();
   vTaskDelay(5000 / portTICK_PERIOD_MS);
   Serial.println("Init is now ended");
   vwsadesktop();
@@ -132,14 +133,19 @@ void ScreenManager::waitForTouchEvent(uint32_t UUID) {
             case 0x0004:
               if (x > 55 && x < 92 && y > 24 && y < 57) {
                 // "%" bouton
+                keyToSend = "%";
+                  keyReady = true;
               }
 
               if (x > 102 && x < 139 && y > 24 && y < 57) {
-                // "@" bouton
+                keyToSend = "@";
+                  keyReady = true;
               }
 
               if (x > 148 && x < 185 && y > 24 && y < 57) {
                 // "€" bouton
+                keyToSend = "€";
+                keyReady = true;
               }
 
               if (x > 18 && x < 96 && y > 64 && y < 97) {
@@ -159,6 +165,8 @@ void ScreenManager::waitForTouchEvent(uint32_t UUID) {
 
               if (x > 184 && x < 219 && y > 64 && y < 97) {
                 // "." bouton
+                keyToSend = ".";
+                keyReady = true;
               }
 
               if (x > 18 && x < 54 && y > 103 && y < 136) {
@@ -166,8 +174,11 @@ void ScreenManager::waitForTouchEvent(uint32_t UUID) {
                 if(selectedkeyboard == 0) {
                   //Chiffre
                   Serial.print("Touch 1 is pressed");
-                } else {
-                  //Lettre
+                  keyToSend = "1";
+                  keyReady = true;
+                } else {                  
+                  keyToSend = "!";
+                  keyReady = true;
                 }
               }
 
@@ -175,8 +186,11 @@ void ScreenManager::waitForTouchEvent(uint32_t UUID) {
                 // "2" bouton
                 if(selectedkeyboard == 0) {
                   //Chiffre
+                  keyToSend = "2";
+                  keyReady = true;
                 } else {
-                  //Lettre
+                  keyToSend = "#";
+                  keyReady = true;
                 }
               }
 
@@ -184,8 +198,11 @@ void ScreenManager::waitForTouchEvent(uint32_t UUID) {
                 // "3" bouton
                 if(selectedkeyboard == 0) {
                   //Chiffre
+                  keyToSend = "3";
+                  keyReady = true;
                 } else {
-                  //Lettre
+                  keyToSend = "&";
+                  keyReady = true;
                 }
               }
 
@@ -193,8 +210,11 @@ void ScreenManager::waitForTouchEvent(uint32_t UUID) {
                 // "4" bouton
                 if(selectedkeyboard == 0) {
                   //Chiffre
+                  keyToSend = "4";
+                  keyReady = true;
                 } else {
-                  //Lettre
+                  keyToSend = "$";
+                  keyReady = true;
                 }
               }
 
@@ -202,8 +222,11 @@ void ScreenManager::waitForTouchEvent(uint32_t UUID) {
                 // "5" bouton
                 if(selectedkeyboard == 0) {
                   //Chiffre
+                  keyToSend = "5";
+                  keyReady = true;
                 } else {
-                  //Lettre
+                  keyToSend = "(";
+                  keyReady = true;
                 }
               }
 
@@ -211,8 +234,11 @@ void ScreenManager::waitForTouchEvent(uint32_t UUID) {
                 // "6" bouton
                 if(selectedkeyboard == 0) {
                   //Chiffre
+                  keyToSend = "6";
+                  keyReady = true;
                 } else {
-                  //Lettre
+                  keyToSend = ")";
+                  keyReady = true;
                 }
               }
 
@@ -220,8 +246,11 @@ void ScreenManager::waitForTouchEvent(uint32_t UUID) {
                 // "7" bouton
                 if(selectedkeyboard == 0) {
                   //Chiffre
+                  keyToSend = "7";
+                  keyReady = true;
                 } else {
-                  //Lettre
+                  keyToSend = "*";
+                  keyReady = true;
                 }
               }
 
@@ -229,8 +258,11 @@ void ScreenManager::waitForTouchEvent(uint32_t UUID) {
                 // "8" bouton
                 if(selectedkeyboard == 0) {
                   //Chiffre
+                  keyToSend = "8";
+                  keyReady = true;
                 } else {
-                  //Lettre
+                  keyToSend = "+";
+                  keyReady = true;
                 }
               }
 
@@ -238,8 +270,11 @@ void ScreenManager::waitForTouchEvent(uint32_t UUID) {
                 // "9" bouton
                 if(selectedkeyboard == 0) {
                   //Chiffre
+                  keyToSend = "9";
+                  keyReady = true;
                 } else {
-                  //Lettre
+                  keyToSend = "-";
+                  keyReady = true;
                 }
               }
 
@@ -247,8 +282,11 @@ void ScreenManager::waitForTouchEvent(uint32_t UUID) {
                 // "0" bouton
                 if(selectedkeyboard == 0) {
                   //Chiffre
+                  keyToSend = "0";
+                  keyReady = true;
                 } else {
-                  //Lettre
+                  keyToSend = "/";
+                  keyReady = true;
                 }
               }
 
@@ -256,8 +294,11 @@ void ScreenManager::waitForTouchEvent(uint32_t UUID) {
                 // "Past" bouton
                 if(selectedkeyboard == 0) {
                   //Past
+                  //keyToSend = "&func.execute-intern(past);";
+                  //keyReady = true;
                 } else {
-                  //Lettre
+                  keyToSend = ":";
+                  keyReady = true;
                 }
               }
 
@@ -265,8 +306,11 @@ void ScreenManager::waitForTouchEvent(uint32_t UUID) {
                 // "Copy" bouton
                 if(selectedkeyboard == 0) {
                   //Copy
+                  //keyToSend = "&func.execute-intern(copy);";
+                  //keyReady = true;
                 } else {
-                  //Lettre
+                  keyToSend = ";";
+                  keyReady = true;
                 }
               }
               break;
@@ -582,7 +626,7 @@ void ScreenManager::VirtualKeyBoard() {
     newbtn(142, 143, 36, 33, "-", WHITE, BLACK, WHITE, 10, &arial10pt7b, 1);
     newbtn(184, 143, 36, 33, "/", WHITE, BLACK, WHITE, 10, &arial10pt7b, 1);
     newbtn(123, 183, 67, 33, ";", WHITE, BLACK, WHITE, 10, &arial10pt7b, 1);
-    newbtn(50, 183, 67, 33, "*", WHITE, BLACK, WHITE, 10, &arial10pt7b, 1);
+    newbtn(50, 183, 67, 33, ":", WHITE, BLACK, WHITE, 10, &arial10pt7b, 1);
     uint32_t currentUUID = 0x0004;
     waitForTouchEvent(currentUUID);
   }
@@ -606,6 +650,8 @@ void ScreenManager::wifistart() {
     }
     vTaskDelay(50 / portTICK_PERIOD_MS); // Petit délai pour éviter de bloquer le CPU
   }
+
+  checkconnection();
 
   Serial.println("WiFi connecté !");
   wificonnstatus = true;

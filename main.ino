@@ -24,7 +24,7 @@ void TaskCore0(void *pvParameters) {
 void TaskCore1(void *pvParameters) {
   keyCore.begin();
   while (1) {
-    vTaskDelay(1000 / portTICK_PERIOD_MS);
+    keyCore.ChecksendKey();
   }
 }
 
